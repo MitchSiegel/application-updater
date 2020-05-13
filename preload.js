@@ -10,3 +10,4 @@ window.addEventListener('DOMContentLoaded', () => {
     replaceText(`${type}-version`, process.versions[type])
   }
 })
+const remote = require('electron').remote

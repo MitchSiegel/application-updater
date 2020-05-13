@@ -4,3 +4,11 @@
 // `nodeIntegration` is turned off. Use `preload.js` to
 // selectively enable features needed in the rendering
 // process.
+
+function getE(e){
+  return document.querySelector(e);
+}
+
+getE("#close").addEventListener("click",function(){
+    window.close()
+  })
