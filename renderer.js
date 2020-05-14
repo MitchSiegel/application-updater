@@ -12,3 +12,4 @@ function getE(e){
 getE("#close").addEventListener("click",function(){
     window.close()
   })
+

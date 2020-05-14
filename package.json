@@ -20,6 +20,8 @@
     "electron": "^8.2.5"
   },
   "dependencies": {
-    "electron-reload": "^1.5.0"
+    "electron-reload": "^1.5.0",
+    "regedit": "^3.0.3",
+    "windows": "0.0.9"
   }
 }

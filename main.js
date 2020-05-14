@@ -1,9 +1,19 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {
+  app,
+  BrowserWindow
+} = require('electron')
 const path = require('path')
+
+var regedit = require('regedit')
+regedit.setExternalVBSLocation("./wsf/");
+let progList = {}
+
+
+
 require('electron-reload')(__dirname);
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
 
   const mainWindow = new BrowserWindow({
@@ -14,7 +24,9 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js')
     }
   })
-
+  mainWindow.webContents.executeJavaScript(
+    `global={progList: {${progList}}};`
+  );
   // and load the index.html of the app.
   mainWindow.webContents.openDevTools()
   mainWindow.loadFile('index.html')
@@ -27,8 +39,17 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  createWindow()
-  
+  regedit.list(['HKCU\\SOFTWARE', 'HKLM\\SOFTWARE'])
+    .on('data', function (entry) {
+      progList = entry
+    })
+    .on('finish', function () { 
+      createWindow()
+      console.log(progList)
+    })
+    
+
+
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
